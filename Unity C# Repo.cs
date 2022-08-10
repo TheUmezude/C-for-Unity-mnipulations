@@ -1,4 +1,4 @@
-// ************* Some useful C# scripts for manipulating game objects ****************
+// ************* Some useful C# scripts for manipulating game objects *****************
 
 
 
