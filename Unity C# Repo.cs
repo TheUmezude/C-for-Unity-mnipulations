@@ -180,3 +180,42 @@ public class ObjectHit : MonoBehaviour
 }
 
 //**************************************************************************************************************************************************
+
+// Code to turn on/off components associated with a Game Object - In this case the 'Mesh Renderer' component and the 'Rigidbody' components would be toggled,
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Dropper : MonoBehaviour
+{
+    public float timecount = 5f; // This is to initialize the count time to a specific time value
+    // Start is called before the first frame update
+    void Start()
+    {
+        // I would need to firstly get access to the necessary components I want to toggle on/off, once the game starts.
+        // Next, I would need to set the property of the component to False. (enabled is a property of every component).
+        GetComponent<MeshRenderer>().enabled = false; // Disabling the Mesh Renderer component - to make the game object invisible
+        // Note that you could also do this by creating a vairable of type 'MeshRenderer' and equal it to the 'GetComponent'
+        // e.g: MeshRenderer renderer_variable;
+        // renderer_variable = GetComponent<MeshRenderer>();
+        // renderer_variable.enabled = false;
+
+        GetComponent<Rigidbody>().useGravity = false; // Disabling the Rigidbody component
+        // Note that you could also do this by creating a vairable of type 'RigidBody' and equal it to the 'GetComponent'
+        // e.g: Rigidbody rigidbody_variable;
+        // rigidbody_variable = GetComponent<MeshRenderer>();
+        // renderer_variable.useGravity = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Note that 'Time.time' returns the time that the game has been running for (for each moment it is called).
+        if (Time.time > timecount) 
+        {
+            GetComponent<MeshRenderer>().enabled = true; // re-enabling the components
+            GetComponent<Rigidbody>().useGravity = true; // re-enabling the components
+        }    
+    }
+}
+//*********************************************************************************************************************************************************
