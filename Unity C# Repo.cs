@@ -153,7 +153,6 @@ public class Translate_object : MonoBehaviour
 
 //*************************************************************************************************************************************************
 
-// Code to make an object being collided with to change color to red.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -169,15 +168,32 @@ public class ObjectHit : MonoBehaviour
         When this normally happens, an 'Event' is triggered
          
         It is also a type 'private' method because it can only be used within the class.
+
+        'collision' can be seen as a variable of type: Collision. In-other words, it can be given any other name.
          */
 
         // Making the game to get a 'MeshRenderer' type component which holds info about 'Materials', 'Lighting', 'Probes', etc.
         // In this case, I am asking for the material property to be gotten from 'Mesh Renderer'.
         // Under the material property, I am asking for the color sub-property to be modified.
         // I am then equating the material's color sub-property to the color names from Unity's documentation - type 'Color'
-        GetComponent<MeshRenderer>().material.color = Color.red;
+
+        // It is possible to only trigger this response when a particular object is contacted.
+        // For that, we would need to use tags. To use tags, the game object would first have to be tagged from Unity's GUI
+        if (collision.gameObject.tag == "Player") // The tag being used here is "Player"
+        {
+            /* 
+            The 'if' statement is only being used in-order:
+            for the response to only be triggered when the collision happens with a specific tag
+            Note that in-order for this to work, the tag would have to first be assigned to the game object.
+            REMOVE the 'if' statement if you do not want the action to be triggered when a particular object makes the collision.
+             */
+            GetComponent<MeshRenderer>().material.color = Color.red;
+            gameObject.tag = "Already Hit"; // Changing the tag of any obstacle being hit to allow for more modifications
+        }
+        
     }
 }
+
 
 //**************************************************************************************************************************************************
 
