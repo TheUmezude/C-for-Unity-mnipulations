@@ -235,3 +235,18 @@ public class Dropper : MonoBehaviour
     }
 }
 //*********************************************************************************************************************************************************
+
+// Button programming to change scenes
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement; // To allow you change between scenes from a button press
+
+public class ChangeScene : MonoBehaviour
+{
+    public void LoadGame() // Random function name
+    {
+        SceneManager.LoadScene("Collision Level 1"); // To load the specific scene of choice.
+    }
+}
+//**********************************************************************************************************************************************************
