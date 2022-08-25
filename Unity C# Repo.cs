@@ -251,20 +251,25 @@ public class ChangeScene : MonoBehaviour
 }
 //**********************************************************************************************************************************************************
 //IOT Turn on and turn off. with virtual button 
+// in this example we are using 2 diffrent buttons to control a lamp
+// one of them will turn it on and another one will turn it off 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
-using UnityEngine.Networking;
+using UnityEngine.Networking; //A utility class to send a network message with no contents.
+
+
 
 public class First : MonoBehaviour
 {
-    public VirtualButtonBehaviour Vb_on;
-    public VirtualButtonBehaviour Vb_off;
-    public string url_on;
+    public VirtualButtonBehaviour Vb_on; //VB can be linked to the Image Target VB1 from the unity engine
+    public VirtualButtonBehaviour Vb_off; //VB can be linked to the Image Target VB2 from the unity engine
+    public string url_on; //we are providing the urls from https://blynk.io/ 
     public string url_off;
 
-    IEnumerator GetRequest(string uri)
+    IEnumerator GetRequest(string uri) //IEnumerable in C# is an interface that defines one method, GetEnumerator which returns an IEnumerator interface. This allows readonly access to a collection then a collection that implements IEnumerable can be used with a for-each statement.
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -276,22 +281,22 @@ public class First : MonoBehaviour
 
     void Start()
     {
-        Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
+        Vb_on.RegisterOnButtonPressed(OnButtonPressed_on); //OnButtonPressed_on function Occurs when the Button control is clicked
 
-        Vb_off.RegisterOnButtonPressed(OnButtonPressed_off);
+        Vb_off.RegisterOnButtonPressed(OnButtonPressed_off); //OnButtonPressed_off function Occurs when the Button control is clicked
        
     }
 
 
     public void OnButtonPressed_on(VirtualButtonBehaviour Vb_on)
     {
-        StartCoroutine(GetRequest(url_on));
-        Debug.Log("LED IS ON");
+        StartCoroutine(GetRequest(url_on));//A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met and continues from where it had left off.
+        Debug.Log("LED IS ON");//for Consol 
     }
 
     public void OnButtonPressed_off(VirtualButtonBehaviour Vb_off)
     {
-        StartCoroutine(GetRequest(url_off));
+        StartCoroutine(GetRequest(url_off)); //A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met and continues from where it had left off.
         Debug.Log("LED IS OFF");
     }
 
