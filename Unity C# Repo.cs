@@ -250,36 +250,36 @@ public class ChangeScene : MonoBehaviour
     }
 }
 //**********************************************************************************************************************************************************
-/ / virtual button
+//virtual button
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Events;//Allows you to specify a delegate that gets called when some event in your code is triggered
 using Vuforia;
  
-public class vb_anim : MonoBehaviour
+public class vb_anim : MonoBehaviour //VB_anim can be linked to the Image Target VB1 from the unity engine image target 
 {
  
     public GameObject vbBtnObj;
-    public Animator cubeAni;
+    public Animator cubeAni; //Cube is already made, and will be linked inside the unity enginYou can assign animation clips to the animation component and control playback from your script
  
     // Use this for initialization
     void Start()
     {
-        vbBtnObj = GameObject.Find("LacieBtn");
-        vbBtnObj.GetComponent<VirtualButtonBehaviour>().RegisterOnButtonPressed(OnButtonPressed);
-        vbBtnObj.GetComponent<VirtualButtonBehaviour>().RegisterOnButtonReleased(OnButtonReleased);
+        vbBtnObj = GameObject.Find("LacieBtn");//Find is useful for automatically connecting references to other objects at load time; for example, inside MonoBehaviour. Awake or MonoBehaviour.
+        vbBtnObj.GetComponent<VirtualButtonBehaviour>().RegisterOnButtonPressed(OnButtonPressed);//This behaviour associates a Virtual Button with a game object. OnButtonPressed function will start when the button is clicked
+        vbBtnObj.GetComponent<VirtualButtonBehaviour>().RegisterOnButtonReleased(OnButtonReleased);//This behaviour associates a Virtual Button with a game object. OnButtonPressed function will start when the button is released
  
         cubeAni.GetComponent<Animator>();
     }
  
     public void OnButtonPressed(VirtualButtonBehaviour vb)
     {
-        cubeAni.Play("cube_animation");
-        Debug.Log("Button pressed");
+        cubeAni.Play("cube_animation"); //Start the animation when the button is clicked 
+        Debug.Log("Button pressed"); //for consol
     }
  
     public void OnButtonReleased(VirtualButtonBehaviour vb)
     {
-        cubeAni.Play("none");
-        Debug.Log("Button released");
+        cubeAni.Play("none"); //do not play the animation 
+        Debug.Log("Button released"); //for consol
     }
 }
