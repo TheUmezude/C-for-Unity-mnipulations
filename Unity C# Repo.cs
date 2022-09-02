@@ -251,31 +251,38 @@ public class ChangeScene : MonoBehaviour
 }
 //**********************************************************************************************************************************************************
 
-//IOT Turn on and turn off. with virtual button 
+// integrate a 'Get' command in Unity with Vuforia - In this case, an IoT usecase was investigated
 // in this example we are using 2 diffrent buttons to control a lamp
 // one of them will turn it on and another one will turn it off 
+// See video: https://youtu.be/52tz1iIJaVc
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Vuforia;
-using UnityEngine.Networking; //A utility class to send a network message with no contents.
+using Vuforia; // This is an external framework that allows you create AR experiences
+using UnityEngine.Networking; // A utility class to send a network message with no contents. Sort of a 'Get' command-enabling library for activating URLs
 
 
 
-public class First : MonoBehaviour
+public class First : MonoBehaviour // The name 'First' is just a class name of choice. You can use any name you choose
 {
-    public VirtualButtonBehaviour Vb_on; //VB can be linked to the Image Target VB1 from the unity engine
-    public VirtualButtonBehaviour Vb_off; //VB can be linked to the Image Target VB2 from the unity engine
-    public string url_on; //we are providing the urls from https://blynk.io/ 
-    public string url_off;
+	/*
+	The 'VirtualButtonBehaviour' associates a Virtual Button with a game object. Use the functionality in ImageTargetBehaviour to create and destroy Virtual Buttons at run-time. 
+	It is a class API reference. The VirtualButtonBehavior class reference can be linked to the image target from the Unity engine.
+	*/
+	
+    public VirtualButtonBehaviour Vb_on; // 'Vb_on' is the variable chosen for when the button is switched on.
+    public VirtualButtonBehaviour Vb_off; // 'Vb_off' is the variable chosen for when the button is switched off.
+	
+    public string url_on; // Declaring a public string variable for assigning the URL associated with switching on the button (for example: https://blynk.io/)
+    public string url_off; // Declaring a public string variable for assigning the URL associated with switching off the button (for example: https://blynk.io/)
 
-    IEnumerator GetRequest(string uri) //IEnumerable in C# is an interface that defines one method, GetEnumerator which returns an IEnumerator interface. This allows readonly access to a collection then a collection that implements IEnumerable can be used with a for-each statement.
+    IEnumerator GetRequest(string uri) // IEnumerable in C# is an interface that defines one method, GetEnumerator which returns an IEnumerator interface. This allows readonly access to a collection then a collection that implements IEnumerable can be used with a for-each statement.
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
+            yield return webRequest.SendWebRequest(); // This activates the URL in generator-type way
 
         }
     }
@@ -304,7 +311,9 @@ public class First : MonoBehaviour
 }
 //*******************************************************************************************************************************************************************
 
-//virtual button
+// AR Virtual button with Vuforia
+// See video: https://youtu.be/Ckw4RKKVE3k
+
 using UnityEngine;
 using UnityEngine.Events;//Allows you to specify a delegate that gets called when some event in your code is triggered
 using Vuforia;
