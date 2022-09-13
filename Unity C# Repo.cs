@@ -251,16 +251,23 @@ public class ChangeScene : MonoBehaviour
 }
 //**********************************************************************************************************************************************************
 
-// integrate a 'Get' command in Unity with Vuforia - In this case, an IoT usecase was investigated
-// in this example we are using 2 diffrent buttons to control a lamp
-// one of them will turn it on and another one will turn it off 
+// Adding Virtual Buttons to AR experiences using Vuforia - then making those buttons perform IoT oeprations
+
+// You can integrate a 'Get' command in Unity with Vuforia - In this case, an IoT usecase was investigated
+// In this example we are using 2 diffrent buttons to control a lamp. One of them will turn it on and another one will turn it off 
+
+/*
+Adding virtual button can be done from the 'Advanced menu on the Vuforia engine's license page - You can add numerous virtual buttons.
+It is good practice to add a plane on-top of the virtual button so that you have visibility on the button's location and dimensions.
+*/
 // See video: https://youtu.be/52tz1iIJaVc
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia; // This is an external framework that allows you create AR experiences
-using UnityEngine.Networking; // A utility class to send a network message with no contents. Sort of a 'Get' command-enabling library for activating URLs
+using UnityEngine.Networking; // A utility class to send a network message with no contents. Sort of a 'Get' command-enabling library for activating URLs.
+// The 'UnityEngine.Networking' library is important for making the virtual buttons perform networking functions.
 
 
 
@@ -271,8 +278,8 @@ public class First : MonoBehaviour // The name 'First' is just a class name of c
 	It is a class API reference. The VirtualButtonBehavior class reference can be linked to the image target from the Unity engine.
 	*/
 	
-    public VirtualButtonBehaviour Vb_on; // 'Vb_on' is the variable chosen for when the button is switched on.
-    public VirtualButtonBehaviour Vb_off; // 'Vb_off' is the variable chosen for when the button is switched off.
+    public VirtualButtonBehaviour Vb_on; // 'Vb_on' is the public variable chosen for when the button is switched on.
+    public VirtualButtonBehaviour Vb_off; // 'Vb_off' is the public variable chosen for when the button is switched off.
 	
     public string url_on; // Declaring a public string variable for assigning the URL associated with switching on the button (for example: https://blynk.io/)
     public string url_off; // Declaring a public string variable for assigning the URL associated with switching off the button (for example: https://blynk.io/)
@@ -289,23 +296,33 @@ public class First : MonoBehaviour // The name 'First' is just a class name of c
 
     void Start()
     {
-        Vb_on.RegisterOnButtonPressed(OnButtonPressed_on); //OnButtonPressed_on function Occurs when the Button control is clicked
+        Vb_on.RegisterOnButtonPressed(OnButtonPressed_on); //OnButtonPressed_on function Occurs when the 'On' virtual button is toggled.
 
-        Vb_off.RegisterOnButtonPressed(OnButtonPressed_off); //OnButtonPressed_off function Occurs when the Button control is clicked
+        Vb_off.RegisterOnButtonPressed(OnButtonPressed_off); //OnButtonPressed_off function Occurs when the 'Off' virtual button is toggled.
        
     }
 
 
     public void OnButtonPressed_on(VirtualButtonBehaviour Vb_on)
     {
-        StartCoroutine(GetRequest(url_on));//A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met and continues from where it had left off.
-        Debug.Log("LED IS ON");//for Consol 
+        StartCoroutine(GetRequest(url_on)); // This makes an API request associated with turning the IoT-enabled device on.
+	    /*
+	    A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. 
+	    We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met 
+	    and continues from where it had left off.
+	    */
+        Debug.Log("LED IS ON"); // Just to print to the console that the IoT-enabled device (light, in this case) is switched on.
     }
 
     public void OnButtonPressed_off(VirtualButtonBehaviour Vb_off)
     {
-        StartCoroutine(GetRequest(url_off)); //A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met and continues from where it had left off.
-        Debug.Log("LED IS OFF");
+        StartCoroutine(GetRequest(url_off)); // This makes an API request associated with turning the IoT-enabled device off.
+	     /*
+	    A coroutine is a function that allows pausing its execution and resuming from the same point after a condition is met. 
+	    We can say, a coroutine is a special type of function used in unity to stop the execution until some certain condition is met 
+	    and continues from where it had left off.
+	    */
+        Debug.Log("LED IS OFF"); // Just to print to the console that the IoT-enabled device (light, in this case) is switched off.
     }
 
 }
